@@ -19,3 +19,46 @@ function updateTimerDisplay() {
     timerDisplay.textContent = formatTime(minutes, seconds);
 }
 
+
+// Start button functionality
+startButton.addEventListener('click', () => {
+    if (!isTimerRunning) {
+        countdown = setInterval(function() {
+            if (minutes <= 0 && seconds <= 0) {
+                clearInterval(countdown);
+                isTimerRunning = false;
+                alert("Pomodoro session is over! Take a break.");
+                minutes = 0;
+                seconds = 0;
+                updateTimerDisplay();
+                return;
+            } else if (seconds <= 0) {
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+            updateTimerDisplay();
+        }, 1000);  // Update every second
+        isTimerRunning = true;
+    }
+});
+
+//stop button
+stopButton.addEventListener('click', () =>{
+    clearInterval(countdown);
+    isTimerRunning = false;
+
+});
+
+//reset
+resetButton.addEventListener('click', () =>{
+    clearInterval(countdown);
+    isTimerRunning = false;
+    minutes = 25;
+    seconds = 0;
+    updateTimerDisplay();
+
+
+
+});
